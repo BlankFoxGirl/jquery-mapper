@@ -3,18 +3,21 @@
     height: $container-height;
     min-width: $container-min-width;
     margin: auto;
+    
     .jquery-mapper-map {
         height: 100%;
         max-width: 67%;
         width: 100%;
         display: inline-block;
     }
+
     .jquery-mapper-controls {
         height: 100%;
         max-width: 33%;
         width: 100%;
         display: inline-block;
         vertical-align: top;
+
         div.location-item {
             display: block;
             position: relative;
@@ -24,30 +27,37 @@
             margin-bottom: 6px;
             margin-left: 6px;
             background: $location-item-default-colour;
+
             span {
                 display: block;
                 font-size: $location-item-meta-size;
             }
+
             span.title {
                 font-weight: bold;
                 text-align: $title-align;
                 font-size: $title-size;
             }
+
             span.address {
                 text-decoration: italic;
                 text-align: left;
             }
+
             span.phone {
                 color: $location-item-meta-colour;
             }
         }
+
         div.location-item.active {
             background: $location-item-active-colour;
         }
+
         div.location-item:hover {
             background: $location-item-hover-colour;
             cursor: pointer;
         }
+
         div.location-item::before {
             position: absolute;
             content: '';
@@ -62,6 +72,7 @@
         div.location-item.icon-supplied::before {
             display: none;
         }
+
         div.location-item.icon-supplied > img {
             position: absolute;
             left: 16px;
