@@ -1,8 +1,7 @@
 .jquery-mapper-container.jquery-mapper-container-locations {
-    min-height: 100%;
     position: relative;
-    min-height: 500px;
-    max-width: 900px;
+    height: $container-height;
+    min-width: $container-min-width;
     margin: auto;
     .jquery-mapper-map {
         height: 100%;
@@ -16,5 +15,13 @@
         width: 100%;
         display: inline-flex;
         vertical-align: top;
+        div.location-item {
+            display: block;
+            min-height: 55px;
+            .title {
+                font-weight: bold;
+                text-align: $title-align;
+            }
+        }
     }
 }

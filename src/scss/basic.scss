@@ -4,11 +4,12 @@
 *
 */
 
+/*   Core   */
+@import "./variables.scss";
+@import "./responsive/_container.scss";
+
 /*   Pins   */
 @import "./map-pins/_pin.scss";
-
-/*   Core   */
-@import "./responsive/_container.scss";
 
 /*   Display Modes   */
 @import "./display-modes/_default.scss";

@@ -15,6 +15,14 @@
                 width: 400,
             },
             Locations: [
+                {
+                    name: 'My Location',
+                    text: 'We sell cool stuff.',
+                    address: '123 Appleberry Way',
+                    phone: '08 12134 5678',
+                    lat: -33.863276,
+                    lng: 151.107977,
+                }
             ],
         };
         this.settings = $.extend(defaultOptions, options);
@@ -22,11 +30,35 @@
             console.log('Started!', this);
         }
 
+        this.map = null;
+        this.markers = [];
+
         this.mapMode = () => {
-            console.log(this[0]);
             switch (this.settings.Mode) {
                 case "Locations":
                     this.append('<div class="jquery-mapper-controls" id="MapControls">lorem</div>');
+                    $.each(this.settings.Locations, (index, item) => {
+                        // Google map drop pin marker.
+                        var latlng = new google.maps.LatLng(
+                            parseFloat(item.lat),
+                            parseFloat(item.lng)
+                        );          
+                        var marker = new google.maps.Marker({
+                            map: this.map,
+                            position: latlng,
+                            label: {
+                                text: item.name,
+                                fontWeight: 'bold',
+                            },
+                            animation: google.maps.Animation.DROP,
+                          });
+                          this.markers.push(marker);
+                          // Populate the controls with clickable options.
+                          var d = document.createElement('div');
+                          $(d).addClass = 'location-item';
+                          $(d).html(item.title);
+                          $(".jquery-mapper-controls").append(d);
+                    });
                     break;
             }
         }
@@ -41,7 +73,7 @@
             }
             $(this).addClass('jquery-mapper-container');
             $(this).append('<div class="jquery-mapper-map" id="MyMap">lorem</div>');
-            var map = new google.maps.Map($('.jquery-mapper-map')[0], {
+            this.map = new google.maps.Map($('.jquery-mapper-map')[0], {
                 center: this.settings.FocusLocation,
                 zoom: 11,
                 mapTypeId: 'roadmap',
