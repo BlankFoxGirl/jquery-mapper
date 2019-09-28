@@ -10,4 +10,8 @@ To compile and minify SASS/SCSS Files.
 - Minify (npm install minify)
 To minify JS files.
 
+
+- Locations
+This will render a google map with controls located to the right hand side, the controls will be populated with locations from the supplied option `Locations` as an array of objects.
+
 Author: Sarah Jabado @ Jabado Pty Ltd. 2019
