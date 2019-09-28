@@ -9,4 +9,7 @@
 
 /*   Core   */
 @import "./responsive/_container.scss";
+
+/*   Display Modes   */
+@import "./display-modes/_default.scss";
 @import "./display-modes/_locations.scss";

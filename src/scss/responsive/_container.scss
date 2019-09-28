@@ -1,0 +1,10 @@
+.jquery-mapper-container {
+    min-height: 100%;
+    position: relative;
+    min-height: 500px;
+    max-width: 900px;
+    margin: auto;
+    .jquery-mapper-map {
+        height: 100%;
+    }
+}
