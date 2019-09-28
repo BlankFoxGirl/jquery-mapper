@@ -10,4 +10,11 @@ To compile and minify SASS/SCSS Files.
 - Minify (npm install minify)
 To minify JS files.
 
+- jQuery (<script src="//code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>)
+Use the latest version of jQuery.
+
+# Available Modes;
+- Default
+This will simply render a google map into the bound element with not much else.
+
 Author: Sarah Jabado @ Jabado Pty Ltd. 2019
