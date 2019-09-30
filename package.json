@@ -1,0 +1,19 @@
+{
+  "name": "jquery-mapper",
+  "version": "0.0.2",
+  "description": "jQuery Mapper Plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint src/js/jquery.mapper.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/sarahjabado/jquery-mapper-plugin.git"
+  },
+  "author": "Sarah Jabado @ Jabado Pty Ltd",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/sarahjabado/jquery-mapper-plugin/issues"
+  },
+  "homepage": "https://gitlab.com/sarahjabado/jquery-mapper-plugin#readme"
+}

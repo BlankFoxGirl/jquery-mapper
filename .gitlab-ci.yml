@@ -1,0 +1,10 @@
+image: "node"
+
+before_script:
+  - apt-get update -qq && apt-get install -y -qq nodejs
+  - npm install -g
+  - npm install -g eslint
+
+rspec: 
+  script:
+    - npm test

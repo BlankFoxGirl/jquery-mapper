@@ -1,10 +1,37 @@
 .jquery-mapper-container {
     min-height: 100%;
     position: relative;
-    min-height: 500px;
-    max-width: 900px;
+    min-height: $container-height;
+    max-width: $container-max-width;
     margin: auto;
+    font-family: $font-family !important;
     .jquery-mapper-map {
         height: 100%;
+    }
+}
+
+.jquery-mapper-container.jquery-mapper-container-locations {
+    @media screen and (max-width: 760px) {
+        .jquery-mapper-map {
+            width: 50% !important;
+        }
+        .jquery-mapper-controls {
+            min-width: 260px;
+        }
+        .jquery-mapper-controls>.location-item {
+            min-width: 240px;
+        }
+    }
+
+    @media screen and (max-width: 535px) {
+        .jquery-mapper-map {
+            display: block !important;
+            max-width: 100% !important;
+            width: 100% !important;
+        }
+        .jquery-mapper-controls {
+            display: block !important;
+            max-width: 97% !important;
+        }
     }
 }

@@ -1,0 +1,35 @@
+/*   Info Window.   */
+.gm-style-iw-d > div > div {
+    padding: 2px 10px 10px 25px;
+    span.title {
+        font-weight: bold;
+    }
+    span.meta {
+        text-decoration: italic;
+        color: $location-item-meta-colour;
+    }
+    span {
+        display: block;
+    }
+    
+}
+.gm-style-iw-d > div > div::before {
+    position: absolute;
+    height: 32px;
+    width: 32px;
+    background: url($item-icon) no-repeat;
+    top: 5px;
+    left: 2px;
+    opacity: 0.1;
+}
+.gm-style-iw-d > div > div.icon-supplied::before {
+    display: none;
+}
+
+.gm-style-iw-d > div > div.icon-supplied > img {
+    position: absolute;
+    top: 5px;
+    left: 2px;
+    max-height: 32px;
+    max-width: 32px;
+}
