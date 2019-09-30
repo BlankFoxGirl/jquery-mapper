@@ -1,10 +1,12 @@
-#  jQuery Mapper v0.0.1
+#  jQuery Mapper v0.2.0
 
 ## What is it?
 > This project is aimed at creating a jQuery plugin which acts as a google maps wrapper enabling the passing of map data in `JSON` format for use on a website by binding to a containing element. The aim is for this plugin to be inately responsive and fully customisable. Written using ES6 standards and tested against ESLINT + SASS for errors before each build. 
-> [link to a repository file in the same directory](CHANGELOG.md)
+
+[View the change log.](CHANGELOG.md)
+
 ## Usage;
-- Usage is simple.
+### Required Code Additions (Installation)
 Add to your `<head>` tag;
 ```html
 <link ref="stylesheet" href="build/css/[VERSION]-basic.min.css">
@@ -17,8 +19,9 @@ Add before your `</body>` tag;
 <script src="build/js/[VERSION]-jquery.mapper.min.js" type="text/javascript" delay></script>
 ```
 
-### Initialising
+### Initialising (Setup)
 Once the requried files are included you can initialise jQuery Mapper like this;
+
 ```html
 <script>
 $(document).ready(() => {
@@ -35,17 +38,17 @@ $(document).ready(() => {
 - SASS (npm install sass)
 To compile and minify SASS/SCSS Files.
 
-- Minify (npm install minify)
-To minify JS files.
+- terser (npm install terser)
+To minify ES6 JS files.
 
 - jQuery (//code.jquery.com/jquery-latest.min.js")
 Use the latest version of jQuery.
 >>>
 
 ## Available Modes;
-- Default
+- `Default`
 This will simply render a google map into the bound element with not much else.
-- Locations
+- `Locations`
 This will render a google map with controls located to the right hand side, the controls will be populated with locations from the supplied option `Locations` as an array of objects.
 
 ## Locations Object Structure;
