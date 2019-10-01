@@ -1,4 +1,4 @@
-#  jQuery Mapper v0.2.0
+#  jQuery Mapper v0.2.1
 
 ## What is it?
 > This project is aimed at creating a jQuery plugin which acts as a google maps wrapper enabling the passing of map data in `JSON` format for use on a website by binding to a containing element. The aim is for this plugin to be inately responsive and fully customisable. Written using ES6 standards and tested against ESLINT + SASS for errors before each build. 
@@ -6,6 +6,14 @@
 [View the change log.](CHANGELOG.md)
 
 ## Usage;
+### CDN Links;
+>>>
+#### Delivered by JS Deliver - This uses the production branch and should be safe for production use.
+```html
+<link ref="stylesheet" href="https://cdn.jsdelivr.net/gh/sarahjabado/jquery-mapper/build/css/latest-jquery.mapper.min.css">
+<script src="https://cdn.jsdelivr.net/gh/sarahjabado/jquery-mapper/build/js/latest-jquery.mapper.min.js" type="text/javascript" delay></script>
+```
+>>>
 ### Required Code Additions (Installation)
 Add to your `<head>` tag;
 ```html
@@ -43,6 +51,8 @@ To minify ES6 JS files.
 
 - jQuery (//code.jquery.com/jquery-latest.min.js")
 Use the latest version of jQuery.
+
+- Google API Key for JavaScript Maps. (Obtained here: https://developers.google.com/maps/documentation/javascript/get-api-key)
 >>>
 
 ## Available Modes;

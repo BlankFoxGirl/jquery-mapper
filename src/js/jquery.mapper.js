@@ -88,7 +88,7 @@
                 $('#MapControls>.location-item[data-marker-index]').on('click', (e) => {
                     let markerId = e.currentTarget.getAttribute('data-marker-index');
                     console.log(e.currentTarget, markerId);
-                    this.infoWindow.setContent('<div class="location-item' + ($(e.currentTarget).hasClass('icon-supplied') ? ' icon-supplied' : null) + '">' + $(e.currentTarget).html() + '</div>');
+                    this.infoWindow.setContent('<div class="location-item' + ($(e.currentTarget).hasClass('icon-supplied') ? ' icon-supplied' : '') + '">' + $(e.currentTarget).html() + '</div>');
                     this.infoWindow.open(this.map, this.markers[markerId]);
                     $('#MapControls').children().each((index, child) => {
                         if (this.settings.Debug) {

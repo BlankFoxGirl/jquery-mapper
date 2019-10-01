@@ -2,7 +2,7 @@
 
 if [ -z "$1" ]
 then
-    VERSION='0.0.2';
+    VERSION='0.2.2';
 else 
     VERSION=$1;
 fi
@@ -22,8 +22,8 @@ then
     terser src/js/jquery.mapper.js -o build/js/latest-jquery.mapper.min.js --compress --mangle --ie8 --safari10;
     echo 'Done!';
     echo 'Compiling SCSS Files...';
-    sass src/scss/basic.scss:build/css/$VERSION-basic.min.css --style compressed
-    sass src/scss/basic.scss:build/css/latest-basic.min.css --style compressed
+    sass src/scss/basic.scss:build/css/$VERSION-jquery.mapper.min.css --style compressed
+    sass src/scss/basic.scss:build/css/latest-jquery.mapper.min.css --style compressed
     echo 'Build complete!';
     echo "## Version [$VERSION]" >> CHANGELOG.md;
 else
