@@ -7,17 +7,22 @@
         var defaultOptions = {
             Title: 'Hej!',
             ApiKey: 'YOUR_APIKEY',
-            Debug: true,
-            Mode: 'Locations',
-            FocusLocation: {
-                lat: -33.863276,
-                lng: 151.107977,
-            },
+            Debug: false,
+            Mode: 'default',
+            FocusLocation: null,
             MapSize: {
                 height: 400,
                 width: 400,
             },
             Locations: [],
+            googleOptions: {
+                center: {
+                    lat: -33.863276,
+                    lng: 151.107977,
+                },
+                zoom: 11,
+                mapTypeId: 'roadmap',
+            }
         };
         this.settings = $.extend(defaultOptions, options);
         if (this.settings.Debug) {
@@ -70,6 +75,9 @@
                 this.append('<div class="jquery-mapper-controls" id="MapControls">' + children + '</div>');
                 $('#MapControls>.location-item[data-marker-index]').on('click', (e) => {
                     let markerId = e.currentTarget.getAttribute('data-marker-index');
+                    if (this.settings.Debug) {
+                        console.log(e.currentTarget, markerId);
+                    }
                     this.infoWindow.setContent('<div class="location-item' + ($(e.currentTarget).hasClass('icon-supplied') ? ' icon-supplied' : '') + '">' + $(e.currentTarget).html() + '</div>');
                     this.infoWindow.open(this.map, this.markers[markerId]);
                     $('#MapControls').children().each((index, child) => {
@@ -97,11 +105,14 @@
             if (typeof google === 'undefined') {
                 this.importMap();
             } else {
-                this.map = new google.maps.Map($('.jquery-mapper-map')[0], {
-                    center: this.settings.FocusLocation,
-                    zoom: 11,
-                    mapTypeId: 'roadmap',
-                });
+                if (this.settings.Debug) {
+                    console.log(this.settings.googleOptions);
+                }
+                if (this.settings.FocusLocation !== null) {
+                    this.settings.googleOptions.center = this.settings.FocusLocation;
+                }
+                this.map = new google.maps.Map($('.jquery-mapper-map')[0], this.settings.googleOptions);
+                this.infoWindow = new google.maps.InfoWindow();
                 this.mapMode();
             }
         };
@@ -119,11 +130,13 @@
                         console.log('Successfully lazy loaded google maps. Now we\'ll initiate the map!');
                     }
                     clearInterval(this.thread);
-                    this.map = new google.maps.Map($('.jquery-mapper-map')[0], {
-                        center: this.settings.FocusLocation,
-                        zoom: 11,
-                        mapTypeId: 'roadmap',
-                    });
+                    if (this.settings.Debug) {
+                        console.log(this.settings.googleOptions);
+                    }
+                    if (this.settings.FocusLocation !== null) {
+                        this.settings.googleOptions.center = this.settings.FocusLocation;
+                    }
+                    this.map = new google.maps.Map($('.jquery-mapper-map')[0], this.settings.googleOptions);
                     this.infoWindow = new google.maps.InfoWindow();
                     this.mapMode();
                 }
