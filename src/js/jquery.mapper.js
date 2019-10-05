@@ -14,24 +14,7 @@
                 height: 400,
                 width: 400,
             },
-            Locations: [
-                {
-                    name: 'My Location',
-                    text: 'We sell cool stuff.',
-                    address: '123 Appleberry Way',
-                    phone: '08 12134 5678',
-                    lat: -33.863276,
-                    lng: 151.107977,
-                },
-                {
-                    name: 'My Location 2',
-                    text: 'We sell cool stuff.',
-                    address: '189 Appleberry Way',
-                    phone: '08 12134 5679',
-                    lat: -33.782066,
-                    lng: 151.101867,
-                },
-            ],
+            Locations: [],
             googleOptions: {
                 center: {
                     lat: -33.863276,
@@ -48,7 +31,7 @@
 
         this.map = null;
         this.markers = [];
-        this.infoWindow = new google.maps.InfoWindow();
+        this.infoWindow = null;
 
         this.mapMode = () => {
             switch (this.settings.Mode) {
@@ -119,14 +102,45 @@
             }
             $(this).addClass('jquery-mapper-container');
             $(this).append('<div class="jquery-mapper-map" id="MyMap">lorem</div>');
+            if (typeof google === 'undefined') {
+                this.importMap();
+            } else {
+                if (this.settings.Debug) {
+                    console.log(this.settings.googleOptions);
+                }
+                if (this.settings.FocusLocation !== null) {
+                    this.settings.googleOptions.center = this.settings.FocusLocation;
+                }
+                this.map = new google.maps.Map($('.jquery-mapper-map')[0], this.settings.googleOptions);
+                this.infoWindow = new google.maps.InfoWindow();
+                this.mapMode();
+            }
+        };
+
+        this.importMap = () => {
             if (this.settings.Debug) {
-                console.log(this.settings.googleOptions);
+                console.log('Importing google maps with ' + this.settings.ApiKey);
             }
-            if (this.settings.FocusLocation !== null) {
-                this.settings.googleOptions.center = this.settings.FocusLocation;
-            }
-            this.map = new google.maps.Map($('.jquery-mapper-map')[0], this.settings.googleOptions);
-            this.mapMode();
+            let dom = document.createElement('script');
+            dom.src = 'https://maps.googleapis.com/maps/api/js?key=' + this.settings.ApiKey;
+            document.getElementsByTagName('body')[0].appendChild(dom);
+            this.thread = window.setInterval(() => {
+                if (typeof google !== 'undefined') {
+                    if (this.settings.Debug) {
+                        console.log('Successfully lazy loaded google maps. Now we\'ll initiate the map!');
+                    }
+                    clearInterval(this.thread);
+                    if (this.settings.Debug) {
+                        console.log(this.settings.googleOptions);
+                    }
+                    if (this.settings.FocusLocation !== null) {
+                        this.settings.googleOptions.center = this.settings.FocusLocation;
+                    }
+                    this.map = new google.maps.Map($('.jquery-mapper-map')[0], this.settings.googleOptions);
+                    this.infoWindow = new google.maps.InfoWindow();
+                    this.mapMode();
+                }
+            }, 100);
         };
 
         this.init();
