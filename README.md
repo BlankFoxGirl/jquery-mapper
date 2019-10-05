@@ -17,14 +17,13 @@
 ### Required Code Additions (Installation)
 Add to your `<head>` tag;
 ```html
-<link ref="stylesheet" href="build/css/[VERSION]-basic.min.css">
+<link ref="stylesheet" href="build/css/latest-basic.min.css">
 ```
 
 Add before your `</body>` tag;
 ```html
 <script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=[API-KEY]"></script>
-<script src="build/js/[VERSION]-jquery.mapper.min.js" type="text/javascript" delay></script>
+<script src="build/js/latest-jquery.mapper.min.js" type="text/javascript" delay></script>
 ```
 
 ### Initialising (Setup)
@@ -33,7 +32,9 @@ Once the requried files are included you can initialise jQuery Mapper like this;
 ```html
 <script>
 $(document).ready(() => {
-    $("#map").mapper();
+    $("#map").mapper({
+        ApiKey: '[API-KEY]';
+    });
 });
 </script>
 ```
