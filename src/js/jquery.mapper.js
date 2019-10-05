@@ -17,24 +17,7 @@
                 height: 400,
                 width: 400,
             },
-            Locations: [
-                {
-                    name: 'My Location',
-                    text: 'We sell cool stuff.',
-                    address: '123 Appleberry Way',
-                    phone: '08 12134 5678',
-                    lat: -33.863276,
-                    lng: 151.107977,
-                },
-                {
-                    name: 'My Location 2',
-                    text: 'We sell cool stuff.',
-                    address: '189 Appleberry Way',
-                    phone: '08 12134 5679',
-                    lat: -33.782066,
-                    lng: 151.101867,
-                },
-            ],
+            Locations: [],
         };
         this.settings = $.extend(defaultOptions, options);
         if (this.settings.Debug) {
@@ -43,7 +26,7 @@
 
         this.map = null;
         this.markers = [];
-        this.infoWindow = new google.maps.InfoWindow();
+        this.infoWindow = null;
 
         this.mapMode = () => {
             switch (this.settings.Mode) {
@@ -87,7 +70,6 @@
                 this.append('<div class="jquery-mapper-controls" id="MapControls">' + children + '</div>');
                 $('#MapControls>.location-item[data-marker-index]').on('click', (e) => {
                     let markerId = e.currentTarget.getAttribute('data-marker-index');
-                    console.log(e.currentTarget, markerId);
                     this.infoWindow.setContent('<div class="location-item' + ($(e.currentTarget).hasClass('icon-supplied') ? ' icon-supplied' : '') + '">' + $(e.currentTarget).html() + '</div>');
                     this.infoWindow.open(this.map, this.markers[markerId]);
                     $('#MapControls').children().each((index, child) => {
@@ -112,12 +94,40 @@
             }
             $(this).addClass('jquery-mapper-container');
             $(this).append('<div class="jquery-mapper-map" id="MyMap">lorem</div>');
-            this.map = new google.maps.Map($('.jquery-mapper-map')[0], {
-                center: this.settings.FocusLocation,
-                zoom: 11,
-                mapTypeId: 'roadmap',
-            });
-            this.mapMode();
+            if (typeof google === 'undefined') {
+                this.importMap();
+            } else {
+                this.map = new google.maps.Map($('.jquery-mapper-map')[0], {
+                    center: this.settings.FocusLocation,
+                    zoom: 11,
+                    mapTypeId: 'roadmap',
+                });
+                this.mapMode();
+            }
+        };
+
+        this.importMap = () => {
+            if (this.settings.Debug) {
+                console.log('Importing google maps with ' + this.settings.ApiKey);
+            }
+            let dom = document.createElement('script');
+            dom.src = 'https://maps.googleapis.com/maps/api/js?key=' + this.settings.ApiKey;
+            document.getElementsByTagName('body')[0].appendChild(dom);
+            this.thread = window.setInterval(() => {
+                if (typeof google !== 'undefined') {
+                    if (this.settings.Debug) {
+                        console.log('Successfully lazy loaded google maps. Now we\'ll initiate the map!');
+                    }
+                    clearInterval(this.thread);
+                    this.map = new google.maps.Map($('.jquery-mapper-map')[0], {
+                        center: this.settings.FocusLocation,
+                        zoom: 11,
+                        mapTypeId: 'roadmap',
+                    });
+                    this.infoWindow = new google.maps.InfoWindow();
+                    this.mapMode();
+                }
+            }, 100);
         };
 
         this.init();
