@@ -1,3 +1,9 @@
+## Version [0.2.2] - 10th November 2019
+- Fix issue with location's controll wrapper not overflowing auto.
+- Introduce name based searching for locations.
+- Introduce radius based searching for locations.
+- Additional interface items for location.
+
 ## Version [0.2.1] - 1st October 2019
 - Fix for issue #1 
 - Update to documentation specifying linkback to google support docs for Google Maps Javascript API.

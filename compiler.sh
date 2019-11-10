@@ -2,7 +2,7 @@
 
 if [ -z "$1" ]
 then
-    VERSION='0.2.2';
+    VERSION='0.2.3';
 else 
     VERSION=$1;
 fi
@@ -25,7 +25,7 @@ then
     sass src/scss/basic.scss:build/css/$VERSION-jquery.mapper.min.css --style compressed
     sass src/scss/basic.scss:build/css/latest-jquery.mapper.min.css --style compressed
     echo 'Build complete!';
-    echo "## Version [$VERSION]" >> CHANGELOG.md;
+    echo "\r\n## Version [$VERSION]" >> CHANGELOG.md;
 else
     echo 'Unable to compile new version. Please solve the following errors.';
     echo "$LINT";

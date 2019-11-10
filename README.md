@@ -1,4 +1,4 @@
-#  jQuery Mapper v0.2.1
+#  jQuery Mapper v0.2.2
 
 ## What is it?
 > This project is aimed at creating a jQuery plugin which acts as a google maps wrapper enabling the passing of map data in `JSON` format for use on a website by binding to a containing element. The aim is for this plugin to be inately responsive and fully customisable. Written using ES6 standards and tested against ESLINT + SASS for errors before each build. 
