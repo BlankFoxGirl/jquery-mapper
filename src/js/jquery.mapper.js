@@ -153,10 +153,8 @@
 
         this.setRadius = (radius) => {
             // Performa a simple calculation to display locations within the radius (KM) around the centerpoint of the map.
-            console.log('set radius to', radius);
             if (radius === null) {
                 // Reset markers.
-                console.log('Reset all');
                 this.map.setZoom(11);
                 for (let i = 0; i < this.markers.length; i++) {
                     this.markers[i].visible = true;
@@ -167,7 +165,6 @@
 
             const r = (isNaN(parseInt(radius))) ? null : parseInt(radius);
             if (r === null) {
-                console.log('Reset all');
                 // Reset markers.
                 this.map.setZoom(11);
                 for (let i = 0; i < this.markers.length; i++) {
@@ -194,12 +191,10 @@
                     )
                 ) {
                     $('#MapControls>.location-item[data-marker-index="' + i + '"]').show();
-                    console.log('Found', this.markers[i]);
                     this.markers[i].visible = true;
                 } else {
                     $('#MapControls>.location-item[data-marker-index="' + i + '"]').hide();
                     this.markers[i].visible = false;
-                    console.log('Remove', this.markers[i]);
                 }
             }
 
@@ -231,7 +226,6 @@
             let foundIndex = 0;
 
             if (name === null) {
-                console.log('Reset all');
                 // Reset markers.
                 this.map.setZoom(11);
                 for (let i = 0; i < this.markers.length; i++) {
