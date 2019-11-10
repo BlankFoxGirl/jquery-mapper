@@ -3,7 +3,7 @@
     height: $container-height;
     min-width: $container-min-width;
     margin: auto;
-    
+
     .jquery-mapper-map {
         height: 100%;
         max-width: 67%;
@@ -17,6 +17,7 @@
         width: 100%;
         display: inline-block;
         vertical-align: top;
+        overflow: auto;
 
         div.location-item {
             display: block;
@@ -73,7 +74,7 @@
             display: none;
         }
 
-        div.location-item.icon-supplied > img {
+        div.location-item.icon-supplied>img {
             position: absolute;
             left: 16px;
             top: 20px;

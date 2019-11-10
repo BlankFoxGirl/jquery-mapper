@@ -32,6 +32,7 @@
         this.map = null;
         this.markers = [];
         this.infoWindow = null;
+        this.radius = null;
 
         this.mapMode = () => {
             switch (this.settings.Mode) {
@@ -88,6 +89,12 @@
                     });
                     $(e.currentTarget).addClass('active');
                 });
+                $('.mapper-radius-dropdown').on('change', (e) => {
+                    this.setRadius(e.currentTarget.value);
+                });
+                $('.mapper-location-name').on('change', (e) => {
+                    this.searchLocationNames(e.currentTarget.value);
+                });
                 break;
             }
         };
@@ -96,6 +103,7 @@
             switch (this.settings.Mode) {
             case 'Locations':
                 $(this).addClass('jquery-mapper-container-locations');
+                $(this).prepend('<div class="mapper-location-search"><input class="mapper-location-name" type="text" placeholder="Location Name"><select class="mapper-radius-dropdown"><option value="">Default</option><option value="100">100km</option><option value="50">50km</option><option value="20">20km</option><option value="10">10km</option><option value="2">2km</option></select></div>');
                 break;
             default:
                 break;
@@ -141,6 +149,116 @@
                     this.mapMode();
                 }
             }, 100);
+        };
+
+        this.setRadius = (radius) => {
+            // Performa a simple calculation to display locations within the radius (KM) around the centerpoint of the map.
+            if (radius === null) {
+                // Reset markers.
+                this.map.setZoom(11);
+                for (let i = 0; i < this.markers.length; i++) {
+                    this.markers[i].visible = true;
+                }
+                $('.location-item').show();
+                return;
+            }
+
+            const r = (isNaN(parseInt(radius))) ? null : parseInt(radius);
+            if (r === null) {
+                // Reset markers.
+                this.map.setZoom(11);
+                for (let i = 0; i < this.markers.length; i++) {
+                    this.markers[i].visible = true;
+                }
+                $('.location-item').show();
+                return;
+            }
+
+            const degCalc = 1 / 110;  // 1 LAT/Long deg ~= 110 KM.
+            const latMin = this.map.center.lat() - (degCalc * r);
+            const latMax = this.map.center.lat() + (degCalc * r);
+            const lngMin = this.map.center.lng() - (degCalc * r);
+            const lngMax = this.map.center.lng() + (degCalc * r);
+            for (let i = 0; i < this.markers.length; i++) {
+                if (
+                    (
+                        this.markers[i].position.lat() <= latMax &&
+                        this.markers[i].position.lat() >= latMin
+                    ) &&
+                    (
+                        this.markers[i].position.lng() <= lngMax &&
+                        this.markers[i].position.lng() >= lngMin
+                    )
+                ) {
+                    $('#MapControls>.location-item[data-marker-index="' + i + '"]').show();
+                    this.markers[i].visible = true;
+                } else {
+                    $('#MapControls>.location-item[data-marker-index="' + i + '"]').hide();
+                    this.markers[i].visible = false;
+                }
+            }
+
+            let zoom = 11;
+            switch (r) {
+            case 2:
+                zoom = 15;
+                break;
+            case 10:
+                zoom = 11;
+                break;
+            case 20:
+                zoom = 10.5;
+                break;
+            case 50:
+                zoom = 9.75;
+                break;
+            case 100:
+                zoom = 9;
+                break;
+            }
+
+            this.map.setZoom(zoom);
+            this.radius = r;
+        };
+
+        this.searchLocationNames = (name) => {
+            let found = 0;
+            let foundIndex = 0;
+
+            if (name === null) {
+                // Reset markers.
+                this.map.setZoom(11);
+                for (let i = 0; i < this.markers.length; i++) {
+                    this.markers[i].visible = true;
+                }
+                $('.location-item').show();
+                return;
+            }
+
+            for (let i = 0; i < this.markers.length; i++) {
+                if (this.markers[i].label.text.toLowerCase().indexOf(name.toLowerCase()) !== -1) {
+                    this.markers[i].visible = true;
+                    $('#MapControls>.location-item[data-marker-index="' + i + '"]').show();
+                    found ++;
+                    foundIndex = i;
+                } else {
+                    this.markers[i].visible = false;
+                    $('#MapControls>.location-item[data-marker-index="' + i + '"]').hide();
+                }
+            }
+
+            if (found === 1) {
+                this.map.setCenter(this.markers[foundIndex].position);
+                this.map.setZoom(15);
+            } else {
+                // Do jitter to force map refresh.
+                this.map.setCenter(this.settings.googleOptions.center);
+                if (this.map.zoom === 11) {
+                    this.map.setZoom(11.5);
+                } else {
+                    this.map.setZoom(11);
+                }
+            }
         };
 
         this.init();
